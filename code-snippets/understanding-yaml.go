@@ -55,11 +55,13 @@ func LoadConfig(file string) (*OutterConfig, error) {
 
 func main() {
 	config, e := LoadConfig("config-with-defaults.yaml")
+	fmt.Println(config.DefaultedConfig)
 	fmt.Println(e)
 	bs, _ := yaml.Marshal(config)
 	fmt.Println(string(bs))
 
 	config, e = LoadConfig("config-without-defaults.yaml")
+	fmt.Println(config.DefaultedConfig)
 	fmt.Println(e)
 	bs, _ = yaml.Marshal(config)
 	fmt.Println(string(bs))
