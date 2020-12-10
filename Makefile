@@ -18,7 +18,15 @@ seed:
 	docker exec -it $$(docker ps -f ancestor=postgres -f status=running -q | head -n 1) psql -U postgres -f /seed/3-seed-users.sql
 	docker exec -it $$(docker ps -f ancestor=postgres -f status=running -q | head -n 1) psql -U postgres -f /seed/4-seed-data.sql
 
-restart: stop start seed
+query: 
+	docker exec -it $$(docker ps -f ancestor=postgres -f status=running -q | head -n 1) psql -U postgres -f /seed/5-query-data.sql
+
+restart: stop start seed query
 
 exec: 
 	docker exec -it $$(docker ps -f ancestor=postgres -f status=running -q | head -n 1) bash
+
+run:
+	cd app && uvicorn main:app --reload
+
+# https://github.com/graphql/graphiql
